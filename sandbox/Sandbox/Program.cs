@@ -68,7 +68,7 @@ class Program
         string facts = "";
         for (int i = 0; i < factors.Count; i++)
         {
-            facts += (factors[i] + ((i != factors.Count - 1) ? ", " : ""));
+            facts += factors[i] + ((i != factors.Count - 1) ? ", " : "");
         }
 
         return facts;
