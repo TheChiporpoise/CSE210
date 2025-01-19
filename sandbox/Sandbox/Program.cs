@@ -42,14 +42,11 @@ class Program
         {
             factors.Add(2);
             n /= 2;
-            // Console.Write($"{n}, ");
         }
 
         for (var f = 3; f*f <= n; f += 2)
         {
-            // Console.WriteLine("Made it to odd");
             while ((n % f) == 0) {
-                // Console.WriteLine("Made it to while");
                 factors.Add(f);
                 n /= f;
             }
