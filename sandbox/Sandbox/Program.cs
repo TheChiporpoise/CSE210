@@ -11,6 +11,20 @@ class Program
         string facts = ToFacts(factors);
 
         Console.WriteLine(OutMessage(num, facts, factors));
+
+        // int n = 2;
+        // while (n < 100000)
+        // {
+        //     List<int> factors = PrimFact(n);
+        //     string facts = ToFacts(factors);
+
+        //     if (factors.Count() == 1)
+        //     {
+        //         Console.WriteLine(OutMessage(n, facts, factors));
+        //     }
+
+        //     n++;
+        // }
     }
 
     static int GetNumber() {
