@@ -5,6 +5,7 @@ class Journal
 
     public void Display()
     {
+        System.Console.WriteLine();
         foreach (Entry ent in entries)
         {
             ent.Display();

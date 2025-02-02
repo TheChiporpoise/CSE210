@@ -1,7 +1,0 @@
-[
-    [
-        \"January 28th 2025\",
-        \"<insert text here>\",
-        \"<insert text here>\"
-    ]
-]

@@ -12,6 +12,7 @@ class Program
     {
         System.Console.WriteLine();
         String userIn = "0";
+        String pause = "";
         while (userIn != "6")
         {
             System.Console.Write
@@ -50,6 +51,8 @@ class Program
                 }
                 else{
                     currentJournal.Display();
+                    System.Console.Write("[Press enter to continue]");
+                    System.Console.ReadLine();
                 }
             }
             else if (userIn == "6")
@@ -107,7 +110,6 @@ class Program
         foreach (String line in raw)
         {
             semi.Add(line);
-            System.Console.WriteLine(line);
         }
         
         for (int i = 1; i <= semi.Count();)
