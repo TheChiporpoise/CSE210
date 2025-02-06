@@ -37,11 +37,11 @@ class Program
             }
             else if (userIn == "3")
             {
-                AddEntry();
+                currentJournal.AddEntry();
             }
             else if (userIn == "4")
             {
-                Save();
+                currentJournal.Save(currentFilePath);
             }
             else if (userIn == "5")
             {
@@ -61,7 +61,7 @@ class Program
                     System.Console.Write("Would you like to save first? [Y/N] ");
                     if (System.Console.ReadLine() == "Y" || System.Console.ReadLine() == "y")
                     {
-                        Save();
+                        currentJournal.Save(currentFilePath);
                     }
                 }
                 return;
@@ -122,66 +122,5 @@ class Program
             currentJournal.entries.Add(ent);
             i += 5;
         }
-    }
-
-    static void Save()
-    {
-        if (currentFilePath == null || currentJournal == null )
-        {
-            System.Console.WriteLine("Please Load a journal first.");
-            return;
-        }
-
-        System.Console.WriteLine("Saving...");
-
-        List<String> formattedJournal = [];
-        int entNum = 1;
-        foreach (Entry ent in currentJournal.entries)
-        {
-            formattedJournal.Add($"Entry #{entNum++}");
-            formattedJournal.Add(ent.date);
-            formattedJournal.Add(ent.prompt);
-            formattedJournal.Add(ent.text);
-            formattedJournal.Add("");
-        }
-        File.WriteAllLines(currentFilePath, formattedJournal);
-        System.Console.WriteLine("Journal saved!");
-    }
-
-    static void AddEntry()
-    {
-        Entry newEnt = new Entry();
-
-        DateTime dateTime = DateTime.Now; 
-
-        String prompt = RandomPrompt();
-
-        newEnt.date = $"{dateTime}";
-        newEnt.prompt = $"{prompt}";
-        System.Console.WriteLine($"{prompt}");
-        newEnt.text = System.Console.ReadLine();
-
-        currentJournal.entries.Add(newEnt);
-    }
-
-    static String RandomPrompt()
-    {
-        Random rand = new Random();
-
-        List<String> prompts = 
-        [
-            "Who did you talk to today?",
-            "What did you get done today?",
-            "What plans did you make today?",
-            "What did you learn toady?",
-            "What are you looking forward to?",
-            "What was something funny that happened today?",
-            "What did you do for fun today?",
-            "What did you study in the scriptures?",
-            "Where did you go today?",
-            "Write a haiku!"
-        ];
-        
-        return prompts[rand.Next(prompts.Count())];
     }
 }
