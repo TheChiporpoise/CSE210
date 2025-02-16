@@ -36,7 +36,7 @@ class Program
     {
         String userIn = "";
 
-        scrip.Display();
+        scrip.DisplayHidden();
         System.Console.WriteLine("\nPress enter to remove a word.\nPress any key and enter to exit.");
 
         while (userIn == "")
@@ -53,7 +53,7 @@ class Program
 
             scrip.HideWord();
             System.Console.Clear();
-            scrip.Display();
+            scrip.DisplayHidden();
 
             System.Console.WriteLine("\nPress enter to remove a word.\nType QUIT and enter to exit.");
 

@@ -103,4 +103,13 @@ public class Scripture
             v.Display();
         }
     }
+
+    public void DisplayHidden()
+    {
+        System.Console.WriteLine(_ref);
+        foreach(Verse v in _verseList)
+        {
+            v.DisplayHidden();
+        }
+    }
 }

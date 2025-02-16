@@ -63,6 +63,16 @@ public class Verse
 
     public void Display()
     {
+        String text = "";
+        foreach(Word w in _wordList)
+        {
+            text += $" {w.GetWord()}";
+        }
+        System.Console.WriteLine($"{_verseNum}{text}");
+    }
+
+    public void DisplayHidden()
+    {
         String holeyText = "";
         foreach(Word w in _wordList)
         {
