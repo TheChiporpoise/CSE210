@@ -70,7 +70,7 @@ public class Scripture
     {
         Random rand = new Random();
         int randIndex = rand.Next(_keptVerseList.Count());
-        System.Console.WriteLine($"V:{randIndex}");
+        // System.Console.WriteLine($"V:{randIndex}");
 
         Verse randVerse = _keptVerseList[randIndex];
         randVerse.HideWord();

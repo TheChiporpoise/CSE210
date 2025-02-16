@@ -33,7 +33,7 @@ public class Verse
         {
             Random rand = new Random();
             int randIndex = rand.Next(_keptWordList.Count());
-            System.Console.WriteLine($"W:{randIndex}");
+            // System.Console.WriteLine($"W:{randIndex}");
 
             Word randWord = _keptWordList[randIndex];
 
