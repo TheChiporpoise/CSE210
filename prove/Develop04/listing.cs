@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using Microsoft.VisualBasic;
+
 public class Listing : Activity
 {
     private List<String> _promptList = [
@@ -29,23 +32,37 @@ public class Listing : Activity
         return prompt;
     }
 
+    private int getTimerSeconds(TimeSpan timeSpan)
+    {
+        String timeString = Convert.ToString(timeSpan);
+        int seconds = (3600 * Convert.ToInt32("" + timeString[0] + timeString[1])) + (60 * Convert.ToInt32("" + timeString[3] + timeString[4])) + Convert.ToInt32("" + timeString[6] + timeString[7]);
+        return seconds;
+    }
+
     public void DoActivity()
     {
         System.Console.WriteLine("Get ready...");
         ShowAnimation(5000);
         
-        System.Console.WriteLine($"Consider the following prompt:\n\n--- {RandomPrompt()} ---\n\n");
+        System.Console.WriteLine($"Consider the following prompt:\n\n--- {RandomPrompt()} ---\n");
         System.Console.Write("You may begin in: .");
         for (int s = 3; s > 0; s--)
         {
             System.Console.Write($"\b{s}");
             Thread.Sleep(1000);
         }
+        Stopwatch timer = new Stopwatch(); // used to compare start time to end time
+        timer.Start();
         System.Console.Write("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bList away!         \n");
-        // Thread;
-        System.Console.ReadLine();
 
+        while (_duration > getTimerSeconds(timer.Elapsed))
+        {
+            System.Console.ReadLine();
+        }
 
-        // list as many in duration, don't stop them from typing their last
+        timer.Stop();
+
+        System.Console.WriteLine($"Well done!\n\nYou have completed {_duration} seconds of the {_name} Activity.");
+        ShowAnimation(5000);
     }
 }
