@@ -51,9 +51,4 @@ public class Activity
         }
         System.Console.Write("\b \n");
     }
-
-    public void DisplayWellDone()
-    {
-        
-    }
 }
