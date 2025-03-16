@@ -12,7 +12,7 @@ class Program
     {
         System.Console.WriteLine();
         String userIn = "0";
-        String pause = "";
+        
         while (userIn != "6")
         {
             System.Console.Write
