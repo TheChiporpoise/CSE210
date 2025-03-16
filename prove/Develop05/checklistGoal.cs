@@ -38,6 +38,7 @@ public class ChecklistGoal : Goal
     {
         if (_canRepeat || _completedCount < _totalToComplete)
         {
+            _completedCount++;
             if (_completedCount % _totalToComplete == 0)
             {
                 _awardedPoints += _finishedPoints;
@@ -50,7 +51,6 @@ public class ChecklistGoal : Goal
                     _name += " ✓";
                 }
             }
-            _completedCount++;
         }
     }
 }
