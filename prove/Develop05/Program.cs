@@ -141,7 +141,8 @@ class Program
                     points += g.GetAwardedPoints();
                 }
                 System.Console.Clear();
-                System.Console.WriteLine($"Total points earned: {points}");
+                System.Console.Write($"You've got {points} so far! Press ENTER to continue. ");
+                System.Console.ReadLine();
             }
             else if (userIn == "6")
             {
@@ -198,6 +199,7 @@ class Program
                 }
                 catch
                 {
+                    System.Console.WriteLine($"{i} Simple failed at index {i}");
                     corrupt++;
                 }
             }
@@ -210,10 +212,11 @@ class Program
                 }
                 catch
                 {
+                    System.Console.WriteLine($"{i} Eternal failed at index {i}");
                     corrupt++;
                 }
             }
-            if (semi[i][0] == '3')
+            else if (semi[i][0] == '3')
             {
                 try
                 {
@@ -222,6 +225,7 @@ class Program
                 }
                 catch
                 {
+                    System.Console.WriteLine($"Checklist failed at index {i}");
                     corrupt++;
                 }
             }
@@ -232,8 +236,12 @@ class Program
         }
         if (0 < corrupt) {
             System.Console.Write($"{corrupt} goals could not be loaded properly. Press ENTER to continue.");
-            System.Console.ReadLine();
         }
+        else 
+        {
+            System.Console.Write("Loaded! Press ENTER to continue. ");
+        }
+        System.Console.ReadLine();
     }
 
     static void Save()
@@ -253,6 +261,8 @@ class Program
             }
             File.WriteAllLines(currentFilePath, goalStrings);
         }
+        System.Console.Write("Saved! Press ENTER to continue. ");
+        System.Console.ReadLine();
     }
 
     static SimpleGoal PromptSimpleGoal()
@@ -289,7 +299,7 @@ class Program
         int bonusPoints = Convert.ToInt32(System.Console.ReadLine());
         System.Console.Write("What is the total amount of times this goal must be completed? ");
         int totalToComplete = Convert.ToInt32(System.Console.ReadLine());
-        System.Console.Write("Is this goal repeatable? [T/F]");
+        System.Console.Write("Is this goal repeatable? [T/F] ");
         String repeatRaw = System.Console.ReadLine();
         Boolean canRepeat;
         if (repeatRaw.ToLower() == "t")
@@ -301,11 +311,6 @@ class Program
             canRepeat = false;
         }
 
-
         return new ChecklistGoal(name, description, points, totalToComplete, bonusPoints, canRepeat);
     }
-    // static Goal DuplicateGoal()
-    // {
-    //     return new ChecklistGoal();
-    // }
 }

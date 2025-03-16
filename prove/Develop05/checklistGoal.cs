@@ -21,9 +21,9 @@ public class ChecklistGoal : Goal
     public ChecklistGoal(String rep) : base(rep)
     {
         String[] goalRaw = rep.Split("`");
-        _totalToComplete = Convert.ToInt32(goalRaw[5]);
-        _finishedPoints = Convert.ToInt32(goalRaw[6]);
-        _canRepeat = Convert.ToBoolean(goalRaw[7]);
+        _totalToComplete = Convert.ToInt32(goalRaw[6]);
+        _finishedPoints = Convert.ToInt32(goalRaw[7]);
+        _canRepeat = Convert.ToBoolean(goalRaw[8]);
     }
     public override String GetRep()
     {
