@@ -4,6 +4,26 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello FinalProject World!");
+        
+    }
+
+    static void AddToCatelog()
+    {
+        
+    }
+    
+    static void RemoveFromCatelog()
+    {
+        
+    }
+    
+    static void ScanItem()
+    {
+
+    }
+    
+    static void Checkout()
+    {
+
     }
 }
