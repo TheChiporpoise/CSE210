@@ -30,13 +30,14 @@ class Electronic : Item
     {
         if(!CanSellCheck())
         {
-            System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
+            System.Console.Write("\nThere is a recall on this item, it cannot be sold. Press ENTER to continue. ");
+
             return;
         }
 
         string yesNo;
 
-        System.Console.Write($"\nWould you like to purchase a warranty for this {_name}? [Y/N]");
+        System.Console.Write($"\nWould you like to purchase a warranty for this {_name}? [Y/N] ");
         yesNo = System.Console.ReadLine();
         if (yesNo.ToLower() == "y")
         {
@@ -59,7 +60,19 @@ class Electronic : Item
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nWarranty Price: {_warrantyPrice}\nDuration: {_warrantyDuration} days\nWarranty Description: {_warrantyDescription}\n\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice: {_price:F2}\nReturnable: {_canReturn}\nRecall: {_recall}\nWarranty Price: {_warrantyPrice}\nDuration: {_warrantyDuration} days\nWarranty Description: {_warrantyDescription}\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
+    }
+
+    public override string ReceiptFormat()
+    {
+        if (_cartPrice != _price)
+        {
+            return $"{_name} -- ${_price:F2}\n\tWarranty until {_warrantyExpiration} -- ${_warrantyPrice:F2}";
+        }
+        else
+        {
+            return $"{_name} -- ${_price:F2}";
+        }
     }
 }

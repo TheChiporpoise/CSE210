@@ -26,7 +26,8 @@ class Giftcard : Item
     {
         if(!CanSellCheck())
         {
-            System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
+            System.Console.Write("\nThere is a recall on this item, it cannot be sold. Press ENTER to continue. ");
+            System.Console.ReadLine();
             return;
         }
 
@@ -49,20 +50,15 @@ class Giftcard : Item
         }
     }
 
-    public void reload(string cardNumber)
-    {
-        
-    }
-
     public override string GetRep()
     {
-        return $"6`{_name}`{_price}`{_canReturn}`{_recall}`{_balance}`{_reloadable}"; // ` seemed like the least likely character to be used in a goal description
+        return $"6`{_name}`{_price:F2}`{_canReturn}`{_recall}`{_balance:F2}`{_reloadable}"; // ` seemed like the least likely character to be used in a goal description
     }
 
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nBalance: {_balance}\nReloadable: {_reloadable}\n\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice: {_price:F2}\nReturnable: {_canReturn}\nRecall: {_recall}\nBalance: {_balance:F2}\nReloadable: {_reloadable}\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
     }
 }

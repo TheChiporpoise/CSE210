@@ -466,7 +466,7 @@ class Program
                 }
                 System.Console.Write("How many sizes are there? ");
                 atts.Add(System.Console.ReadLine());
-                System.Console.Write("What is the percent that should be added each time the size is increased? ");
+                System.Console.Write("What is the percent that should be added each time the size is increased (enter in percent form)? ");
                 atts.Add(System.Console.ReadLine());
                 
                 try
@@ -736,7 +736,7 @@ class Program
 
         for (int i = 0; i < cart.Count(); i++)
         {
-            receipt += $"[{i + 1}] {cart[i].GetName()} -- ${cart[i].getCartPrice()}\n";
+            receipt += $"[{i + 1}] {cart[i].ReceiptFormat()}\n";
             total += cart[i].getCartPrice();
         }
 

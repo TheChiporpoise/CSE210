@@ -22,7 +22,7 @@ class Clothing : Item
             _sizeNames.Add(currentName);
             _sizeNameString += $"\n[{i + 1}] {currentName}";
         }
-        _percentAdd = percentAdd;
+        _percentAdd = percentAdd / 100;
     }
     public Clothing(string rep) : base(rep)
     {
@@ -40,7 +40,8 @@ class Clothing : Item
     {
         if(!CanSellCheck())
         {
-            System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
+            System.Console.Write("\nThere is a recall on this item, it cannot be sold. Press ENTER to continue. ");
+            System.Console.ReadLine();
             return;
         }
         
@@ -70,7 +71,12 @@ class Clothing : Item
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice: ${_price}\nReturnable: {_canReturn}\nRecall: {_recall}\n{_sizeNames.Count()} Sizes: {string.Join(", ", _sizeNames)}\nSize price added: {_percentAdd * 100}% per size up\n\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice: ${_price:F2}\nReturnable: {_canReturn}\nRecall: {_recall}\n{_sizeNames.Count()} Sizes: {string.Join(", ", _sizeNames)}\nSize price added: {_percentAdd * 100}% per size up\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
+    }
+
+    public override string ReceiptFormat()
+    {
+        return $"{_sizeNames[_sizeIndex]} {_name} -- ${_cartPrice:F2}";
     }
 }

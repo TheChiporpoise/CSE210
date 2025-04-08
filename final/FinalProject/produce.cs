@@ -28,15 +28,17 @@ class Produce : Food
         {   
             if (_recall)
             {
-                System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
+                System.Console.Write("\nThere is a recall on this item, it cannot be sold. Press ENTER to continue. ");
             }
             else
             {
-                System.Console.WriteLine("\nThis item is expired, it cannot be sold.");
+                System.Console.Write("\nThis item is expired, it cannot be sold.");
             }
+            System.Console.ReadLine();
             return;
         }
         
+        _weight = -1;
         while (!(_weight <= _weightCeil && _weightFloor <= _weight))
         {
             System.Console.Write("\nEnter weight: ");
@@ -52,10 +54,10 @@ class Produce : Food
         _cartPrice = Math.Round(_weight * _price, 2);
     }
 
-    public override bool CanSellCheck()
-    {
-        return base.CanSellCheck();
-    }
+    // public override bool CanSellCheck()
+    // {
+    //     base.CanSellCheck();
+    // }
 
     public override string GetRep()
     {
@@ -65,7 +67,12 @@ class Produce : Food
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice per Pound: ${_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\nWeight Ceiling: {_weightCeil}\nWeight Floor: {_weightFloor}\n\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice per Pound: ${_price:F2}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\nWeight Ceiling: {_weightCeil}\nWeight Floor: {_weightFloor}\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
+    }
+
+    public override string ReceiptFormat()
+    {
+        return $"{_name} {_weight}lbs -- ${_cartPrice:F2}\n\tGood until: {_expirationDate}";
     }
 }

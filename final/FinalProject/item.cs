@@ -50,6 +50,11 @@ abstract class Item
 
     public abstract void Display();
 
+    public virtual string ReceiptFormat()
+    {
+        return $"{_name} -- ${_cartPrice:F2}";
+    }
+
     // getters & setters for basic attributes
     public string GetName()
     {

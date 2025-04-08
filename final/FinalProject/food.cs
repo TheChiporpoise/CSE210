@@ -37,7 +37,7 @@ class Food : Item
 
     public override bool CanSellCheck()
     {
-        if (!(_recall || IsExpired()))
+        if (_recall || IsExpired())
         {
             return false;
         }
@@ -50,12 +50,14 @@ class Food : Item
         {   
             if (_recall)
             {
-                System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
+                System.Console.Write("\nThere is a recall on this item, it cannot be sold. Press ENTER to continue. ");
             }
             else
             {
-                System.Console.WriteLine("\nThis item is expired, it cannot be sold.");
+                System.Console.Write("\nThis item is expired, it cannot be sold.");
+                System.Console.WriteLine($"{IsExpired()}");
             }
+            System.Console.ReadLine();
             return;
         }
         
@@ -76,7 +78,12 @@ class Food : Item
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice: ${_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\n\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice: ${_price:F2}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
+    }
+
+    public override string ReceiptFormat()
+    {
+        return $"{_name} -- ${_cartPrice:F2}\n\tGood until: {_expirationDate}";
     }
 }
