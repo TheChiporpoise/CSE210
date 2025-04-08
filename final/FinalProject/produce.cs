@@ -9,13 +9,7 @@ class Produce : Food
     {
 
     }
-    public Produce(string name, double pricePerPound, bool canReturn, string expirationDate, float ceil, float floor) : base(name, pricePerPound, canReturn, expirationDate)
-    {
-        _weightCeil = ceil;
-        _weightFloor = floor;
-
-    }
-    public Produce(string name, double pricePerPound, bool canReturn, string expirationDate, string keep, float ceil, float floor) : base(name, pricePerPound, canReturn, expirationDate, keep)
+    public Produce(string name, double pricePerPound, bool canReturn, string expirationDate, string keep, double ceil, double floor) : base(name, pricePerPound, canReturn, expirationDate, keep)
     {
         _weightCeil = ceil;
         _weightFloor = floor;
@@ -41,13 +35,13 @@ class Produce : Food
 
     public override string GetRep()
     {
-        return $"1`{_name}`{_price}`{_canReturn}`{_recall}`{_expirationDate}`{_keep}`{_weightCeil}`{_weightFloor}"; // ` seemed like the least likely character to be used in a goal description
+        return $"2`{_name}`{_price}`{_canReturn}`{_recall}`{_expirationDate}`{_keep}`{_weightCeil}`{_weightFloor}"; // ` seemed like the least likely character to be used in a goal description
     }
 
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice per Pound: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\nWeight Ceiling: {_weightCeil}\nWeight Floor: {_weightFloor}\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice per Pound: ${_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\nWeight Ceiling: {_weightCeil}\nWeight Floor: {_weightFloor}\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
     }
 }

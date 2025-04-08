@@ -1,4 +1,10 @@
-1`example1`12.34`false`false`1/12/2012`filler
-1`example2`12.34`false`false`12/1/2012`filler
-1`example3`12.34`false`false`1/12/2012`filler
-1`example4`12.34`false`false`1/1/2012`filler
+1`example1`12.34`False`False`1/12/2012`filler
+1`example2`12.34`False`False`12/1/2012`filler
+1`example3`12.34`False`False`1/12/2012`filler
+1`example4`12.34`False`False`1/1/2012`filler
+1`Canned Beans`5.23`True`False`2/4/2026`N/A
+2`Celery`0.25`False`False`10/3/2025`Refrigerated`10`1
+3`Shirt`15`True`False`small,medium,large`0.03
+4`Wii`120`True`False`50`365`Covers physical damage as well as hardware and firmware issues.
+5`Couch`200`True`False`30`True
+6`Chipotle Giftcard`10`True`False`10`False

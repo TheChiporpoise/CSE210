@@ -12,9 +12,17 @@ class Furniture : Item
         _deliveryFee = deliveryFee;
         _teamCarry = teamCarry;
     }
+    public Furniture(string rep) : base(rep)
+    {
+        String[] itemRaw = rep.Split("`");
+
+        _deliveryFee = Convert.ToDouble(itemRaw[5]);
+        _teamCarry = Convert.ToBoolean(itemRaw[6]);
+    }
 
     public override void OnScan()
     {
+        // ask if customer needs item shipped/ if needs team carry
         throw new NotImplementedException();
     }
 
@@ -25,13 +33,13 @@ class Furniture : Item
 
     public override string GetRep()
     {
-        throw new NotImplementedException();
+        return $"5`{_name}`{_price}`{_canReturn}`{_recall}`{_deliveryFee}`{_teamCarry}"; // ` seemed like the least likely character to be used in a goal description
     }
 
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nDelivery Fee: {_deliveryFee}\nRequires team carry: {_teamCarry}\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
     }
 }

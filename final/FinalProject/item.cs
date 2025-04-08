@@ -5,6 +5,7 @@ abstract class Item
     protected bool _canReturn;
     
     protected bool _recall = false; // never created with recall being true, it is set later
+    
     protected double _cartPrice;
 
     public Item()

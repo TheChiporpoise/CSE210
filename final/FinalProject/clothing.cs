@@ -17,7 +17,7 @@ class Clothing : Item
         string currentName;
         for (int i = 0; i < sizesCount; i++)
         {
-            System.Console.Write($"What is the name of the #{i} size? ");
+            System.Console.Write($"What is the name of the #{i + 1} size? ");
             currentName = System.Console.ReadLine();
             _sizeNames.Add(currentName);
             _sizeNameString += $"\n[{i + 1}] {currentName}";
@@ -57,13 +57,13 @@ class Clothing : Item
 
     public override string GetRep()
     {
-        return $"1`{_name}`{_price}`{_canReturn}`{_recall}`{string.Join(",", _sizeNames)}`{_percentAdd}"; // ` seemed like the least likely character to be used in a goal description
+        return $"3`{_name}`{_price}`{_canReturn}`{_recall}`{string.Join(",", _sizeNames)}`{_percentAdd}"; // ` seemed like the least likely character to be used in a goal description
     }
 
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\n{_sizeNames.Count()} Sizes: {_sizeNames.ToString()}\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice: ${_price}\nReturnable: {_canReturn}\nRecall: {_recall}\n{_sizeNames.Count()} Sizes: {string.Join(", ", _sizeNames)}\nSize price added: {_percentAdd * 100}% per size up\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
     }
 }

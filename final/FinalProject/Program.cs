@@ -1,4 +1,5 @@
 using System;
+using System.Security.AccessControl;
 
 class Program
 {
@@ -23,7 +24,7 @@ class Program
             }
             else if (userIn == "2")
             {
-                
+                CartMenu();
             }
 
             if (userIn != "3")
@@ -49,7 +50,8 @@ class Program
             }
             else if (userIn == "2")
             {
-                AddToCatelog();
+                AddToCatelogMenu();
+                userIn = "null";
             }
             else if (userIn == "3")
             {
@@ -116,35 +118,74 @@ class Program
                 }
                 catch
                 {
-                    System.Console.WriteLine($"{i} [Food] failed at index {i}");
+                    System.Console.WriteLine($"{i} [Food] failed at file line {i}");
                     corrupt++;
                 }
             }
             else if (semi[i][0] == '2')
             {
-                // try
-                // {
-                //     Produce produce = new Produce(semi[i]);
-                //     catelog.Add(produce);
-                // }
-                // catch
-                // {
-                //     System.Console.WriteLine($"{i} [Produce] failed at index {i}");
-                //     corrupt++;
-                // }
+                try
+                {
+                    Produce produce = new Produce(semi[i]);
+                    catelog.Add(produce);
+                }
+                catch
+                {
+                    System.Console.WriteLine($"{i} [Produce] failed at file line {i}");
+                    corrupt++;
+                }
             }
             else if (semi[i][0] == '3')
             {
-                // try
-                // {
-                //     ChecklistGoal checklist = new ChecklistGoal(semi[i]);
-                //     goalList.Add(checklist);
-                // }
-                // catch
-                // {
-                //     System.Console.WriteLine($"Checklist failed at index {i}");
-                //     corrupt++;
-                // }
+                try
+                {
+                    Clothing clothing = new Clothing(semi[i]);
+                    catelog.Add(clothing);
+                }
+                catch
+                {
+                    System.Console.WriteLine($"[Clothing] failed at file line {i}");
+                    corrupt++;
+                }
+            }
+            else if (semi[i][0] == '4')
+            {
+                try
+                {
+                    Electronic electronic = new Electronic(semi[i]);
+                    catelog.Add(electronic);
+                }
+                catch
+                {
+                    System.Console.WriteLine($"[Electronic] failed at file line {i}");
+                    corrupt++;
+                }
+            }
+            else if (semi[i][0] == '5')
+            {
+                try
+                {
+                    Furniture furniture = new Furniture(semi[i]);
+                    catelog.Add(furniture);
+                }
+                catch
+                {
+                    System.Console.WriteLine($"[Furniture] failed at file line {i}");
+                    corrupt++;
+                }
+            }
+            else if (semi[i][0] == '6')
+            {
+                try
+                {
+                    Giftcard giftcard = new Giftcard(semi[i]);
+                    catelog.Add(giftcard);
+                }
+                catch
+                {
+                    System.Console.WriteLine($"[Giftcard] failed at file line {i}");
+                    corrupt++;
+                }
             }
             else
             {
@@ -152,7 +193,7 @@ class Program
             }
         }
         if (0 < corrupt) {
-            System.Console.Write($"{corrupt} goals could not be loaded properly. Press ENTER to continue.");
+            System.Console.Write($"{corrupt} Items could not be loaded properly. Press ENTER to continue.");
         }
         else 
         {
@@ -192,7 +233,7 @@ class Program
             int index;
 
             Console.Clear();
-            System.Console.Write("[1] Edit Name\n[2] Edit Price\n[3] Change return policy\n[4] RECALL\n[5] Display Attributes\n [6] Remove Item\n[7] Exit\nWhat would you like to do? ");
+            System.Console.Write("[1] Edit Name\n[2] Edit Price\n[3] Change return policy\n[4] RECALL\n[5] Display Attributes\n[6] Remove Item\n[7] Exit\nWhat would you like to do? ");
             userIn = System.Console.ReadLine();
             if (userIn == "1")
             {
@@ -304,11 +345,233 @@ class Program
 
         userIn = "null"; // sets userIn so that outer loop can continue to run
     }
-    static void AddToCatelog()
+    static void AddToCatelogMenu()
     {
-        
+        userIn = "null";
+
+        while (userIn == "null")
+        {
+            List<string> atts = [];
+            string rawInput = "";
+
+            Console.Clear();
+            System.Console.Write("[1] Food\n[2] Produce\n[3] Clothing\n[4] Electronic\n[5] Furniture\n[6] Giftcard\n[7] Exit\nWhat type of item would you like to add? ");
+            userIn = System.Console.ReadLine();
+
+            System.Console.Clear();
+            if (userIn == "1")
+            {
+                System.Console.Write("What is the item name? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the item price? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Is the item returnable? [T/F] ");
+                rawInput = System.Console.ReadLine();
+                if (rawInput.ToLower() == "f")
+                {
+                    atts.Add("false");
+                }
+                else
+                {
+                    atts.Add("true"); // if user put something else in, default to returnable
+                }
+                System.Console.Write("What is the expiration date? [MM/dd/YYYY] ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Any instructions for how to keep (Refrigerated, Frozen, etc.; 'N/A' if none)? [Keep <input>] ");
+                atts.Add(System.Console.ReadLine());
+                
+                try
+                {
+
+                    Food food = new Food(atts[0],Convert.ToDouble(atts[1]),Convert.ToBoolean(atts[2]),atts[3],atts[4]);
+                    catelog.Add(food);
+                }
+                catch
+                {
+                    System.Console.Write("Could not construct Food item properly, try again. Press ENTER to continue. ");
+                    System.Console.ReadLine();
+                }
+            }
+            else if (userIn == "2")
+            {
+                System.Console.Write("What is the item name? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the price per pound? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Is the item returnable? [T/F] ");
+                rawInput = System.Console.ReadLine();
+                if (rawInput.ToLower() == "f")
+                {
+                    atts.Add("false");
+                }
+                else
+                {
+                    atts.Add("true"); // if user put something else in, default to returnable
+                }
+                System.Console.Write("What is the expiration date? [MM/dd/YYYY] ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Any instructions for how to keep (Refrigerated, Frozen, etc.; 'N/A' if none)? [Keep <input>] ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the greatest expected weight in lbs? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the lowest expected weight in lbs? ");
+                atts.Add(System.Console.ReadLine());
+                
+
+                try
+                {
+                    Produce produce = new Produce(atts[0],Convert.ToDouble(atts[1]),Convert.ToBoolean(atts[2]),atts[3],atts[4],Convert.ToDouble(atts[5]),Convert.ToDouble(atts[6]));
+                    catelog.Add(produce);
+                }
+                catch
+                {
+                    System.Console.Write("Could not construct Produce item properly, try again. Press ENTER to continue. ");
+                    System.Console.ReadLine();
+
+                }
+            }
+            else if (userIn == "3")
+            {
+                List<string> sizeNames = [];
+
+                System.Console.Write("What is the item name? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the item price? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Is the item returnable? [T/F] ");
+                rawInput = System.Console.ReadLine();
+                if (rawInput.ToLower() == "f")
+                {
+                    atts.Add("false");
+                }
+                else
+                {
+                    atts.Add("true"); // if user put something else in, default to returnable
+                }
+                System.Console.Write("How many sizes are there? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the percent that should be added each time the size is increased? ");
+                atts.Add(System.Console.ReadLine());
+                
+                try
+                {
+                    Clothing clothing = new Clothing(atts[0],Convert.ToDouble(atts[1]),Convert.ToBoolean(atts[2]),Convert.ToInt32(atts[3]),Convert.ToDouble(atts[4]));
+                    catelog.Add(clothing);
+                }
+                catch
+                {
+                    System.Console.Write("Could not construct Clothing item properly, try again. Press ENTER to continue. ");
+                    System.Console.ReadLine();
+                }
+            }
+            else if (userIn == "4")
+            {
+                System.Console.Write("What is the item name? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the item price? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Is the item returnable? [T/F] ");
+                rawInput = System.Console.ReadLine();
+                if (rawInput.ToLower() == "f")
+                {
+                    atts.Add("false");
+                }
+                else
+                {
+                    atts.Add("true"); // if user put something else in, default to returnable
+                }
+                System.Console.Write("What is the warranty price? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the warranty duration in days? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the warranty description? ");
+                atts.Add(System.Console.ReadLine());
+
+                try
+                {
+                    Electronic electronic = new Electronic(atts[0],Convert.ToDouble(atts[1]),Convert.ToBoolean(atts[2]),Convert.ToDouble(atts[3]),Convert.ToInt32(atts[4]),atts[5]);
+                    catelog.Add(electronic);
+                }
+                catch
+                {
+                    System.Console.Write("Could not construct Electronic item properly, try again. Press ENTER to continue. ");
+                    System.Console.ReadLine();
+                }
+            }
+            else if (userIn == "5")
+            {
+                System.Console.Write("What is the item name? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the item price? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Is the item returnable? [T/F] ");
+                rawInput = System.Console.ReadLine();
+                if (rawInput.ToLower() == "f")
+                {
+                    atts.Add("false");
+                }
+                else
+                {
+                    atts.Add("true"); // if user put something else in, default to returnable
+                }
+                System.Console.Write("What is the price of delivery? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Does the item need a team carry? [T/F] ");
+                rawInput = System.Console.ReadLine();
+                if (rawInput.ToLower() == "f")
+                {
+                    atts.Add("false");
+                }
+                else
+                {
+                    atts.Add("true"); // if user put something else in, default to ask for team carry
+                }
+
+                try
+                {
+                    Furniture furniture = new Furniture(atts[0],Convert.ToDouble(atts[1]),Convert.ToBoolean(atts[2]),Convert.ToDouble(atts[3]),Convert.ToBoolean(atts[4]));
+                    catelog.Add(furniture);
+                }
+                catch
+                {
+                    System.Console.Write("Could not construct Electronic item properly, try again. Press ENTER to continue. ");
+                    System.Console.ReadLine();
+                }
+            }
+            else if (userIn == "6")
+            {
+                System.Console.Write("What is the item name? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the item price? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("What is the card balance? ");
+                atts.Add(System.Console.ReadLine());
+                System.Console.Write("Is the card reloadable? [T/F] ");
+                rawInput = System.Console.ReadLine();
+                if (rawInput.ToLower() == "t")
+                {
+                    atts.Add("true");
+                }
+                else
+                {
+                    atts.Add("false"); // if user put something else in, default to nonreloadable
+                }
+                
+                try
+                {
+                    Giftcard giftcard = new Giftcard(atts[0],Convert.ToDouble(atts[1]),Convert.ToDouble(atts[2]),Convert.ToBoolean(atts[3]));
+                    catelog.Add(giftcard);
+                }
+                catch
+                {
+                    System.Console.Write("Could not construct Giftcard item properly, try again. Press ENTER to continue. ");
+                    System.Console.ReadLine();
+                }
+            }
+        }
     }
     
+    // Displays item names and indexes
     static string DisplayCatelog()
     {
         string catelogText = "";

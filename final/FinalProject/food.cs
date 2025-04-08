@@ -8,14 +8,11 @@ class Food : Item
         _expirationDate = new DateOnly();
         _keep = "N/A";
     }
-    public Food(string name, double price, bool canReturn, string expirationDate) : base(name, price, canReturn)
-    {
-        _expirationDate = DateOnly.ParseExact(expirationDate, "MM/dd/yyyy", null);
-        _keep = "No instructions for what environment to store this item.";
-    }
     public Food(string name, double price, bool canReturn, string expirationDate, string keep) : base(name, price, canReturn)
     {
-        _expirationDate = DateOnly.ParseExact(expirationDate, "MM/dd/yyyy", null);
+        string[] formats = ["M/dd/yyyy", "M/d/yyyy", "MM/dd/yyyy", "MM/d/yyyy"];
+        
+        DateOnly.TryParseExact(expirationDate, formats, null, System.Globalization.DateTimeStyles.None, out _expirationDate);
         _keep = keep;
     }
     public Food(string rep) : base(rep)
@@ -39,7 +36,10 @@ class Food : Item
 
     public override void OnScan()
     {
-        System.Console.WriteLine(_keep);
+        if (_keep != "N/A")
+        {
+            System.Console.WriteLine($"{_keep}");
+        }
     }
     
     public override bool CanSellCheck()
@@ -59,7 +59,7 @@ class Food : Item
     public override void Display()
     {
         System.Console.Clear();
-        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\nPress ENTER to continue. ");
+        System.Console.Write($"Name: {_name}\nPrice: ${_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nExp Date: {_expirationDate}\nKeep Instructions: {_keep}\n\nPress ENTER to continue. ");
         System.Console.ReadLine();
     }
 }
