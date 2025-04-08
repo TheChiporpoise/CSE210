@@ -26,7 +26,7 @@ class Giftcard : Item
     {
         if(!CanSellCheck())
         {
-            System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
             return;
         }
 
@@ -36,7 +36,7 @@ class Giftcard : Item
         {
             while (balanceInput == "0")
             {
-                System.Console.Write("How much would you like to load onto the card? $");
+                System.Console.Write("\nHow much would you like to load onto the card? $");
                 _balance = Math.Abs(Math.Round(Convert.ToDouble(System.Console.ReadLine()),2));
             }
             _price = _balance;

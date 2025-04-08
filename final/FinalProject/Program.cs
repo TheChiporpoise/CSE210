@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 
 class Program
@@ -88,10 +89,11 @@ class Program
             }
             else
             {
-                System.Console.Write("Filepath doesn't lead to a valid file, Exit? [Y/N]");
+                System.Console.Write("Filepath doesn't lead to a valid file, Exit? [Y/N] ");
                 String exit = System.Console.ReadLine();
-                if (exit.ToUpper() == "y")
+                if (exit.ToLower() == "y")
                 {
+                    userIn = "Null";
                     return; // in the case the user wishes to cancel their selection
                 }
             }
@@ -193,7 +195,7 @@ class Program
             }
         }
         if (0 < corrupt) {
-            System.Console.Write($"{corrupt} Items could not be loaded properly. Press ENTER to continue.");
+            System.Console.Write($"{corrupt} Items could not be loaded properly. Press ENTER to continue. ");
         }
         else 
         {
@@ -204,11 +206,18 @@ class Program
 
     static void SaveCatelog()
     {
+        if (catelog.Count() == 0)
+        {
+            System.Console.Write("\nNo catelog/empty catelog loaded, try loading a valid catelog first. Press ENTER to continue. ");
+            System.Console.ReadLine();
+            return;
+        }
+
         if (currentFilePath == "NONE")
         {
             System.Console.Write("Name your Goal List: ");
             String title = System.Console.ReadLine();
-            File.Create(Path.GetFullPath($"lists\\{title}.txt").Replace("bin\\Debug\\net8.0","")); // for some reason it doesn't like to just do relative paths, removing the "bin\Debug\net8.0" fixes this
+            File.Create(Path.GetFullPath($"catelogs\\{title}.txt").Replace("bin\\Debug\\net8.0","")); // for some reason it doesn't like to just do relative paths, removing the "bin\Debug\net8.0" fixes this
         }
         else
         {
@@ -226,6 +235,13 @@ class Program
     // Modify Catelog menu functions
     static void ModifyCatelogMenu()
     {
+        if (catelog.Count() == 0)
+        {
+            System.Console.Write("\nNo catelog/empty catelog loaded, try loading a valid catelog first. Press ENTER to continue. ");
+            System.Console.ReadLine();
+            return;
+        }
+
         userIn = "null";
 
         while (userIn == "null")
@@ -247,7 +263,7 @@ class Program
                 }
                 catch
                 {
-                    System.Console.Write("No item at that index, exiting return policy edit. Press ENTER to continue, then select option 3 and try again.");
+                    System.Console.Write("No item at that index, exiting return policy edit. Press ENTER to continue, then select option 3 and try again. ");
                     System.Console.ReadLine();
                 }
             }
@@ -264,7 +280,7 @@ class Program
                     }
                     catch
                     {
-                        System.Console.Write("Input must be numeric, exiting price edit. Press ENTER to continue, then select option 2 and try again.");
+                        System.Console.Write("Input must be numeric, exiting price edit. Press ENTER to continue, then select option 2 and try again. ");
                         System.Console.ReadLine();
                     }
                 }
@@ -284,7 +300,7 @@ class Program
                 }
                 catch
                 {
-                    System.Console.Write("No item at that index, exiting return policy edit. Press ENTER to continue, then select option 3 and try again.");
+                    System.Console.Write("No item at that index, exiting return policy edit. Press ENTER to continue, then select option 3 and try again. ");
                     System.Console.ReadLine();
                 }
             }
@@ -298,7 +314,7 @@ class Program
                 }
                 catch
                 {
-                    System.Console.Write("No item at that index, exiting recall policy edit. Press ENTER to continue, then select option 4 and try again.");
+                    System.Console.Write("No item at that index, exiting recall policy edit. Press ENTER to continue, then select option 4 and try again. ");
                     System.Console.ReadLine();
                 }
             }
@@ -312,7 +328,7 @@ class Program
                 }
                 catch
                 {
-                    System.Console.Write("No item at that index, exiting Display. Press ENTER to continue, then select option 5 and try again.");
+                    System.Console.Write("No item at that index, exiting Display. Press ENTER to continue, then select option 5 and try again. ");
                     System.Console.ReadLine();
                 }
                 
@@ -327,7 +343,7 @@ class Program
                 }
                 catch
                 {
-                    System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 6 and try again.");
+                    System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 6 and try again. ");
                     System.Console.ReadLine();
                 }
                 
@@ -587,57 +603,102 @@ class Program
     // Cart functions
     static void CartMenu()
     {
+        if (catelog.Count() == 0)
+        {
+            System.Console.Write("\nNo catelog/empty catelog loaded, try loading a valid catelog first. Press ENTER to continue. ");
+            System.Console.ReadLine();
+            return;
+        }
+
         userIn = "null";
 
-            while (userIn == "null")
+        while (userIn == "null")
+        {
+            Console.Clear();
+            System.Console.Write("[1] Add to cart\n[2] Remove from cart\n[3] Checkout\n[4] Exit\nWhat would you like to do? ");
+            userIn = System.Console.ReadLine();
+            if (userIn == "1")
             {
-                Console.Clear();
-                System.Console.Write("[1] Add to cart\n[2] Remove from cart\n[3] Checkout\n[4] Exit\nWhat would you like to do? ");
-                userIn = System.Console.ReadLine();
-                if (userIn == "1")
-                {
-                    AddToCart();
-                }
-                else if (userIn == "2")
-                {
-                    RemoveFromCart();
-                }
-                else if (userIn == "3")
-                {
-                    Checkout();
-                }
-
-                if (userIn == "4")
-                {
-                    userIn = "3"; // exit code outside the loop
-                }
-                else
-                {
-                    userIn = "null"; // keeps loop running
-                }
+                AddToCart();
+            }
+            else if (userIn == "2")
+            {
+                RemoveFromCart();
+            }
+            else if (userIn == "3")
+            {
+                Checkout();
             }
 
-            userIn = "null"; // sets userIn so that outer loop can continue to run
+            if (userIn == "4")
+            {
+                userIn = "3"; // exit code outside the loop
+            }
+            else
+            {
+                userIn = "null"; // keeps loop running
+            }
+        }
     }
-
 
     static void AddToCart()
     {
         int index;
 
-        DisplayCatelog();
+        System.Console.WriteLine();
 
-        System.Console.Write("What is the index of the item you would like to add?");
+        System.Console.Write($"{DisplayCatelog()}What is the index of the item you would like to add? ");
         try
         {
             index = Convert.ToInt32(System.Console.ReadLine());
-            cart.Add(catelog[index - 1]);
+
+            string rawRep = catelog[index - 1].GetRep();
+            
+            // a separate instance of the same class needs to be created so the catalog isn't altered
+            if (rawRep[0] == '1')
+            {
+                Food food = new Food(rawRep);
+                food.OnScan();
+                cart.Add(food);
+            }
+            else if (rawRep[0] == '2')
+            {
+                Produce produce = new Produce(rawRep);
+                produce.OnScan();
+                cart.Add(produce);
+            }
+            else if (rawRep[0] == '3')
+            {
+                Clothing clothing = new Clothing(rawRep);
+                clothing.OnScan();
+                cart.Add(clothing);
+            }
+            else if (rawRep[0] == '4')
+            {
+                Electronic electronic = new Electronic(rawRep);
+                electronic.OnScan();
+                cart.Add(electronic);
+            }
+            else if (rawRep[0] == '5')
+            {
+                Furniture furniture = new Furniture(rawRep);
+                furniture.OnScan();
+                cart.Add(furniture);
+            }
+            else if (rawRep[0] == '6')
+            {
+                Giftcard giftcard = new Giftcard(rawRep);
+                giftcard.OnScan();
+                cart.Add(giftcard);
+            }
         }
         catch
         {
-            System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 2 and try again.");
+            System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 2 and try again. ");
             System.Console.ReadLine();
         }
+
+        userIn = "null"; // sets userIn so that outer loop can continue to run
     }
 
     static void RemoveFromCart()
@@ -659,13 +720,30 @@ class Program
         }
         catch
         {
-            System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 2 and try again.");
+            System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 2 and try again. ");
             System.Console.ReadLine();
         }
+
+        userIn = "null"; // sets userIn so that outer loop can continue to run
     }
     
     static void Checkout()
     {
+        System.Console.Clear();
+        
+        string receipt = "Thank you for shopping with us Today!\n\n";
+        double total = 0;
 
+        for (int i = 0; i < cart.Count(); i++)
+        {
+            receipt += $"[{i + 1}] {cart[i].GetName()} -- ${cart[i].getCartPrice()}\n";
+            total += cart[i].getCartPrice();
+        }
+
+        receipt += $"\nTotal -- ${total}\n";
+
+        System.Console.Write(receipt);
+
+        userIn = "4";
     }
 }

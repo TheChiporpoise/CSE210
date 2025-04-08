@@ -40,25 +40,26 @@ class Clothing : Item
     {
         if(!CanSellCheck())
         {
-            System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
             return;
         }
         
+        _sizeIndex = -1;
         while (!(_sizeIndex <= _sizeNames.Count && 0 <= _sizeIndex))
         {
-            System.Console.WriteLine($"Select from the following sizes: {_sizeNameString}");
+            System.Console.WriteLine($"\nSelect from the following sizes: {_sizeNameString}");
             try
             {
                 _sizeIndex = Convert.ToInt32(System.Console.ReadLine()) - 1;
             }
             catch
             {
-                System.Console.Write("That size is not listed, Press ENTER to continue, then try again.");
+                System.Console.Write("\nThat size is not listed, Press ENTER to continue, then try again.");
                 System.Console.ReadLine();
             }
         }
 
-        _cartPrice = Math.Round(_price * (1 + (_sizeIndex * _percentAdd)));
+        _cartPrice = Math.Round(_price * (1 + (_sizeIndex * _percentAdd)),2);
     }
 
     public override string GetRep()

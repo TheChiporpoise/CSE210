@@ -28,19 +28,25 @@ class Produce : Food
         {   
             if (_recall)
             {
-                System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+                System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
             }
             else
             {
-                System.Console.WriteLine("This item is expired, it cannot be sold.");
+                System.Console.WriteLine("\nThis item is expired, it cannot be sold.");
             }
             return;
         }
         
         while (!(_weight <= _weightCeil && _weightFloor <= _weight))
         {
-            System.Console.Write("Enter weight: ");
+            System.Console.Write("\nEnter weight: ");
             _weight = Convert.ToDouble(System.Console.ReadLine()); // add numeric input validation
+        }
+
+        if (_keep != "N/A")
+        {
+            System.Console.Write($"\nKeep {_keep}. Press ENTER to continue. ");
+            System.Console.ReadLine();
         }
         
         _cartPrice = Math.Round(_weight * _price, 2);

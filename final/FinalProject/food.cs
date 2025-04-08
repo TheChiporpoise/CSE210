@@ -50,21 +50,22 @@ class Food : Item
         {   
             if (_recall)
             {
-                System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+                System.Console.WriteLine("\nThere is a recall on this item, it cannot be sold.");
             }
             else
             {
-                System.Console.WriteLine("This item is expired, it cannot be sold.");
+                System.Console.WriteLine("\nThis item is expired, it cannot be sold.");
             }
             return;
         }
         
         if (_keep != "N/A")
         {
-            System.Console.WriteLine($"Keep {_keep}");
+            System.Console.Write($"Keep {_keep}. Press ENTER to continue. ");
+            System.Console.ReadLine();
         }
 
-        _cartPrice = Math.Round(_price);
+        _cartPrice = Math.Round(_price,2);
     }
 
     public override string GetRep()

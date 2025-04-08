@@ -56,6 +56,11 @@ abstract class Item
         return _name;
     }
 
+    public double getCartPrice()
+    {
+        return _cartPrice;
+    }
+
     public void SetName(string name)
     {
         _name = name;
