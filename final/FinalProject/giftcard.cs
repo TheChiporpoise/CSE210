@@ -9,19 +9,31 @@ class Giftcard : Item
     {
         
     }
-    public Giftcard(string name, float price, bool canReturn, double balance, bool reloadable) : base(name, price, canReturn)
+    public Giftcard(string name, double price, bool canReturn, double balance, bool reloadable) : base(name, price, canReturn)
     {
         _balance = balance;
         _reloadable = reloadable;
     }
 
-    protected override void OnScan()
+    public override void OnScan()
     {
         throw new NotImplementedException();
     }
 
-    private void reload(string cardNumber)
+    public void reload(string cardNumber)
     {
         
+    }
+
+    public override string GetRep()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Display()
+    {
+        System.Console.Clear();
+        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nPress ENTER to continue. ");
+        System.Console.ReadLine();
     }
 }

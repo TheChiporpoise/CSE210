@@ -13,32 +13,65 @@ abstract class Item
         _price = 0;
         _canReturn = false;
     }
-    public Item(string name, float price)
+    public Item(string name, double price)
     {
         _name = name;
         _price = price;
         _canReturn = true;
     }
-    public Item(string name, float price, bool canReturn)
+    public Item(string name, double price, bool canReturn)
     {
         _name = name;
         _price = price;
         _canReturn = canReturn;
     }
-
-    private void SetRecall()
+    public Item(string rep)
     {
-        _recall = !_recall;
+        String[] itemRaw = rep.Split("`");
+        _name = itemRaw[1]; // skips index 0, as that denotes which type the goal is
+        _price = Convert.ToDouble(itemRaw[2]);
+        _canReturn = Convert.ToBoolean(itemRaw[3]);
+        _recall = Convert.ToBoolean(itemRaw[4]);
     }
 
-    protected abstract void OnScan();
+    public abstract void OnScan();
 
-    protected virtual bool CanSellCheck()
+    public virtual bool CanSellCheck()
     {
         if (_recall)
         {
             return false;
         }
         return true;
+    }
+
+    public abstract string GetRep();
+
+    public abstract void Display();
+
+    // getters & setters for basic attributes
+    public string GetName()
+    {
+        return _name;
+    }
+
+    public void SetName(string name)
+    {
+        _name = name;
+    }
+
+    public void SetPrice(double price)
+    {
+        _price = price;
+    }
+
+    public void SetCanReturn()
+    {
+        _canReturn = !_canReturn;
+    }
+
+    public void SetRecall()
+    {
+        _recall = !_recall;
     }
 }

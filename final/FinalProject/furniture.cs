@@ -7,19 +7,31 @@ class Furniture : Item
     {
         
     }
-    public Furniture(string name, float price, bool canReturn, double deliveryFee, bool teamCarry) : base(name, price, canReturn)
+    public Furniture(string name, double price, bool canReturn, double deliveryFee, bool teamCarry) : base(name, price, canReturn)
     {
         _deliveryFee = deliveryFee;
         _teamCarry = teamCarry;
     }
 
-    protected override void OnScan()
+    public override void OnScan()
     {
         throw new NotImplementedException();
     }
 
-    private void PromptTeamCarry()
+    public void PromptTeamCarry()
     {
 
+    }
+
+    public override string GetRep()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Display()
+    {
+        System.Console.Clear();
+        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nPress ENTER to continue. ");
+        System.Console.ReadLine();
     }
 }

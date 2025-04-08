@@ -11,20 +11,32 @@ class Electronic : Item
     {
         
     }
-    public Electronic(string name, float price, bool canReturn, double warrantyPrice, int warrantyDuration, string warrantyDescription) : base(name, price, canReturn)
+    public Electronic(string name, double price, bool canReturn, double warrantyPrice, int warrantyDuration, string warrantyDescription) : base(name, price, canReturn)
     {
         _warrantyPrice = warrantyPrice;
         _warrantyDuration = warrantyDuration;
         _warrantyDescription = warrantyDescription;   
     }
 
-    protected override void OnScan()
+    public override void OnScan()
+    {
+        
+    }
+
+    public void WarrantyOffer()
+    {
+        
+    }
+
+    public override string GetRep()
     {
         throw new NotImplementedException();
     }
 
-    private void WarrantyOffer()
+    public override void Display()
     {
-        
+        System.Console.Clear();
+        System.Console.Write($"Name: {_name}\nPrice: {_price}\nReturnable: {_canReturn}\nRecall: {_recall}\nPress ENTER to continue. ");
+        System.Console.ReadLine();
     }
 }

@@ -1,0 +1,4 @@
+1`example1`12.34`false`false`1/12/2012`filler
+1`example2`12.34`false`false`12/1/2012`filler
+1`example3`12.34`false`false`1/12/2012`filler
+1`example4`12.34`false`false`1/1/2012`filler
