@@ -623,13 +623,45 @@ class Program
 
     static void AddToCart()
     {
+        int index;
+
         DisplayCatelog();
-        
+
+        System.Console.Write("What is the index of the item you would like to add?");
+        try
+        {
+            index = Convert.ToInt32(System.Console.ReadLine());
+            cart.Add(catelog[index - 1]);
+        }
+        catch
+        {
+            System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 2 and try again.");
+            System.Console.ReadLine();
+        }
     }
 
     static void RemoveFromCart()
     {
+        string cartString = "";
+        int index;
 
+        for (int i = 0; i < cart.Count(); i++)
+        {
+            cartString += $"[{i + 1}] {cart[i].GetName()}\n";
+        }
+
+        System.Console.Write($"{cartString}What is the index of the item would you like to remove? ");
+
+        try
+        {
+            index = Convert.ToInt32(System.Console.ReadLine());
+            cart.Remove(catelog[index - 1]);
+        }
+        catch
+        {
+            System.Console.Write("No item at that index, exiting removal. Press ENTER to continue, then select option 2 and try again.");
+            System.Console.ReadLine();
+        }
     }
     
     static void Checkout()
