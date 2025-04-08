@@ -623,7 +623,8 @@ class Program
 
     static void AddToCart()
     {
-
+        DisplayCatelog();
+        
     }
 
     static void RemoveFromCart()

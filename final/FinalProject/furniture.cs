@@ -22,13 +22,40 @@ class Furniture : Item
 
     public override void OnScan()
     {
-        // ask if customer needs item shipped/ if needs team carry
-        throw new NotImplementedException();
-    }
+        if(!CanSellCheck())
+        {
+            System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            return;
+        }
 
-    public void PromptTeamCarry()
-    {
+        string yesNo;
 
+        if (_deliveryFee != 0)
+        {
+            System.Console.Write("Would you like to ship this {_name} home for ${_deliveryFee}? [Y/N] ");
+            yesNo = System.Console.ReadLine();
+            if (yesNo.ToLower() == "y")
+            {
+                _cartPrice += _deliveryFee;
+
+                System.Console.WriteLine("Of course! We will notify a teammember and your item will be delivered later today.");
+
+                // code to prompt a team member for assistance if integrated into larger network
+            }
+            else if (_teamCarry)
+            {
+                System.Console.Write("Would you like assistance bringing this {_name} outside? [Y/N] ");
+                yesNo = System.Console.ReadLine();
+                if (yesNo.ToLower() == "y")
+                {
+                    System.Console.WriteLine("Of course! We will notify a teammember that you need assistance.");
+
+                    // code to prompt a team member for assistance if integrated into larger network
+                }
+            }
+        }
+
+        _cartPrice += _price;
     }
 
     public override string GetRep()

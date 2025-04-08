@@ -35,8 +35,6 @@ abstract class Item
         _recall = Convert.ToBoolean(itemRaw[4]);
     }
 
-    public abstract void OnScan();
-
     public virtual bool CanSellCheck()
     {
         if (_recall)
@@ -45,6 +43,8 @@ abstract class Item
         }
         return true;
     }
+
+    public abstract void OnScan();
 
     public abstract string GetRep();
 

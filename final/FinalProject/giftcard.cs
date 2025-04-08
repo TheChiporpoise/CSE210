@@ -24,7 +24,29 @@ class Giftcard : Item
 
     public override void OnScan()
     {
-        
+        if(!CanSellCheck())
+        {
+            System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            return;
+        }
+
+        string balanceInput = "0";
+
+        if (_balance == 0)
+        {
+            while (balanceInput == "0")
+            {
+                System.Console.Write("How much would you like to load onto the card? $");
+                _balance = Math.Abs(Math.Round(Convert.ToDouble(System.Console.ReadLine()),2));
+            }
+            _price = _balance;
+
+            _cartPrice = _price;
+        }
+        else
+        {
+            _cartPrice = _price;
+        }
     }
 
     public void reload(string cardNumber)

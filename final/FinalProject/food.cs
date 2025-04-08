@@ -19,6 +19,7 @@ class Food : Item
     {
         String[] itemRaw = rep.Split("`");
         string[] formats = ["M/dd/yyyy", "M/d/yyyy", "MM/dd/yyyy", "MM/d/yyyy"];
+
         DateOnly.TryParseExact(itemRaw[5], formats, null, System.Globalization.DateTimeStyles.None, out _expirationDate);
         
         _keep = itemRaw[6];
@@ -34,14 +35,6 @@ class Food : Item
         return false;
     }
 
-    public override void OnScan()
-    {
-        if (_keep != "N/A")
-        {
-            System.Console.WriteLine($"{_keep}");
-        }
-    }
-    
     public override bool CanSellCheck()
     {
         if (!(_recall || IsExpired()))
@@ -49,6 +42,29 @@ class Food : Item
             return false;
         }
         return true;
+    }
+
+    public override void OnScan()
+    {
+        if(!CanSellCheck())
+        {   
+            if (_recall)
+            {
+                System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            }
+            else
+            {
+                System.Console.WriteLine("This item is expired, it cannot be sold.");
+            }
+            return;
+        }
+        
+        if (_keep != "N/A")
+        {
+            System.Console.WriteLine($"Keep {_keep}");
+        }
+
+        _cartPrice = Math.Round(_price);
     }
 
     public override string GetRep()

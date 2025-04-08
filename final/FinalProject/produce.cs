@@ -24,6 +24,19 @@ class Produce : Food
 
     public override void OnScan()
     {
+        if(!CanSellCheck())
+        {   
+            if (_recall)
+            {
+                System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            }
+            else
+            {
+                System.Console.WriteLine("This item is expired, it cannot be sold.");
+            }
+            return;
+        }
+        
         while (!(_weight <= _weightCeil && _weightFloor <= _weight))
         {
             System.Console.Write("Enter weight: ");
@@ -31,6 +44,11 @@ class Produce : Food
         }
         
         _cartPrice = Math.Round(_weight * _price, 2);
+    }
+
+    public override bool CanSellCheck()
+    {
+        return base.CanSellCheck();
     }
 
     public override string GetRep()

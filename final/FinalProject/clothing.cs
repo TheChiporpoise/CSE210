@@ -38,6 +38,12 @@ class Clothing : Item
 
     public override void OnScan()
     {
+        if(!CanSellCheck())
+        {
+            System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            return;
+        }
+        
         while (!(_sizeIndex <= _sizeNames.Count && 0 <= _sizeIndex))
         {
             System.Console.WriteLine($"Select from the following sizes: {_sizeNameString}");
@@ -52,7 +58,7 @@ class Clothing : Item
             }
         }
 
-        _cartPrice = _price * (1 + (_sizeIndex * _percentAdd));
+        _cartPrice = Math.Round(_price * (1 + (_sizeIndex * _percentAdd)));
     }
 
     public override string GetRep()

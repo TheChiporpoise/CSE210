@@ -28,12 +28,23 @@ class Electronic : Item
 
     public override void OnScan()
     {
-        
-    }
+        if(!CanSellCheck())
+        {
+            System.Console.WriteLine("There is a recall on this item, it cannot be sold.");
+            return;
+        }
 
-    public void WarrantyOffer()
-    {
-        
+        string yesNo;
+
+        System.Console.Write($"Would you like to purchase a warranty for this {_name}? [Y/N]");
+        yesNo = System.Console.ReadLine();
+        if (yesNo.ToLower() == "y")
+        {
+            _warrantyExpiration = DateOnly.FromDateTime(DateTime.Now).AddDays(_warrantyDuration);
+            _cartPrice += _warrantyPrice;
+        }
+
+        _cartPrice += _price;
     }
 
     public override string GetRep()
